@@ -1641,8 +1641,9 @@ int status (int argc, const char** argv)
 					}
 				}
 			} else if (!fix_problems && !show_unencrypted_only) {
-				// TODO: output the key name used to encrypt this file
-				std::cout << "    encrypted: " << filename;
+				const std::string keyname = file_attrs.first == "git-crypt" ? "default" : file_attrs.first.substr(10);
+
+				std::cout << "    encrypted: " << filename << " (key:" << keyname << ")";
 				if (file_attrs.second != file_attrs.first) {
 					// but diff filter is not properly set
 					std::cout << " *** WARNING: diff=" << file_attrs.first << " attribute not set ***";
